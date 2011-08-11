@@ -1,0 +1,8 @@
+# ignore neo4j db
+db/*
+
+# ignore vim
+.*.sw[a-z]
+
+.rvmrc
+Gemfile.lock
