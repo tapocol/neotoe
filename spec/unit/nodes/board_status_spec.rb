@@ -13,8 +13,8 @@ describe BoardStatus do
     BoardStatus.should have_one(:feeling, :from => [:feeling])
   end
 
-  it "property :status_hash" do
-    BoardStatus.property?(:status_hash).should be_true
+  it "property :status_int" do
+    BoardStatus.property?(:status_int).should be_true
   end
 end
 

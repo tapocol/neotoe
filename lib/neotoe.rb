@@ -1,9 +1,10 @@
 require "neo4j"
+require "neotoe/board"
 require "neotoe/relationships"
 require "neotoe/nodes"
 
-#: Monkey patching Neo4j::HasN to add my own checks for has_n? and has_one? for specs.
 module Neo4j
+  #: Monkey patching Neo4j::HasN to add my own checks for has_n? and has_one? for specs.
   module HasN
     module ClassMethods
       def has_n?(rel_type, options = {})
@@ -48,6 +49,25 @@ module Neo4j
           _decl_rels[key].target_class == target_class &&\
           _decl_rels[key].dir == dir &&\
           _decl_rels[key].relationship_class == relationship_class
+      end
+    end
+  end
+
+  #: Board TypeConverter
+  module TypeConverters
+    class BoardConverter
+      class << self
+        def convert?(type)
+          type == Board
+        end
+
+        def to_java(val)
+          val.to_status_int
+        end
+
+        def to_ruby(val)
+          Board.from_status_int val
+        end
       end
     end
   end
